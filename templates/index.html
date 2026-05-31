@@ -1,3 +1,222 @@
-<h1>
-    Hello World
-</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>California Housing AI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#0f172a;
+    overflow:hidden;
+    padding:20px;
+}
+
+body::before{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:linear-gradient(#00e5ff,#0099ff);
+    top:-150px;
+    left:-150px;
+    filter:blur(120px);
+}
+
+body::after{
+    content:"";
+    position:absolute;
+    width:450px;
+    height:450px;
+    border-radius:50%;
+    background:linear-gradient(#ff4ecd,#ff7b00);
+    bottom:-150px;
+    right:-150px;
+    filter:blur(120px);
+}
+
+.container{
+    position:relative;
+    z-index:10;
+    width:100%;
+    max-width:1000px;
+    backdrop-filter:blur(25px);
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:30px;
+    padding:40px;
+    box-shadow:0 8px 32px rgba(0,0,0,.35);
+}
+
+.header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.header h1{
+    color:white;
+    font-size:2.5rem;
+}
+
+.header p{
+    color:#d1d5db;
+    margin-top:10px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.input-box{
+    position:relative;
+}
+
+.input-box input{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.08);
+    color:white;
+    font-size:15px;
+}
+
+.input-box label{
+    position:absolute;
+    top:-10px;
+    left:12px;
+    background:#0f172a;
+    padding:0 6px;
+    color:#38bdf8;
+    font-size:12px;
+}
+
+.predict-btn{
+    width:100%;
+    margin-top:30px;
+    padding:16px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+    color:white;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.predict-btn:hover{
+    opacity:0.9;
+}
+
+.result{
+    margin-top:30px;
+    padding:20px;
+    text-align:center;
+    border-radius:15px;
+    background:rgba(0,255,100,0.15);
+    border:1px solid rgba(0,255,100,0.3);
+    color:#7CFF9B;
+    font-size:22px;
+    font-weight:600;
+}
+
+@media(max-width:768px){
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .header h1{
+        font-size:2rem;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>🏡 California Housing AI</h1>
+        <p>Predict House Prices Using Machine Learning</p>
+    </div>
+
+    <form action="/predict" method="POST">
+
+        <div class="form-grid">
+
+            <div class="input-box">
+                <label>Median Income</label>
+                <input type="number" step="any" name="MedInc" required>
+            </div>
+
+            <div class="input-box">
+                <label>House Age</label>
+                <input type="number" step="any" name="HouseAge" required>
+            </div>
+
+            <div class="input-box">
+                <label>Average Rooms</label>
+                <input type="number" step="any" name="AveRooms" required>
+            </div>
+
+            <div class="input-box">
+                <label>Average Bedrooms</label>
+                <input type="number" step="any" name="AveBedrms" required>
+            </div>
+
+            <div class="input-box">
+                <label>Population</label>
+                <input type="number" step="any" name="Population" required>
+            </div>
+
+            <div class="input-box">
+                <label>Average Occupancy</label>
+                <input type="number" step="any" name="AveOccup" required>
+            </div>
+
+            <div class="input-box">
+                <label>Latitude</label>
+                <input type="number" step="any" name="Latitude" required>
+            </div>
+
+            <div class="input-box">
+                <label>Longitude</label>
+                <input type="number" step="any" name="Longitude" required>
+            </div>
+
+        </div>
+
+        <button type="submit" class="predict-btn">
+            Predict House Price 🚀
+        </button>
+
+    </form>
+
+    {% if prediction_text %}
+    <div class="result">
+        {{ prediction_text }}
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
